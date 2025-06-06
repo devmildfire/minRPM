@@ -39,9 +39,9 @@
       try {
 
         //FOR TEST!!!
-        // const absoluteUrl = `https://corsproxy.io/?https://ad.a-ads.com/${adUnit}?size=300x250`
+        const absoluteUrl = `https://corsproxy.io/?https://ad.a-ads.com/${adUnit}?size=300x250`
 
-        const absoluteUrl = new URL(adUrl, location.href).href;
+        // const absoluteUrl = new URL(adUrl, location.href).href;
         const response = await fetch(absoluteUrl);
         let html = await response.text();
               
