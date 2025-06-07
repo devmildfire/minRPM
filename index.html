@@ -49,11 +49,10 @@
       try {
 
         //FOR TEST!!!
-        // const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=300x250`
-        const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
+        // const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
 
-
-        // const absoluteUrl = new URL(adUrl, location.href).href;
+        const absoluteUrl = new URL(adUrl, location.href).href;
+        console.log("absoluteUrl ", absoluteUrl);
         const response = await fetch(absoluteUrl);
         let html = await response.text();
               
