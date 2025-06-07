@@ -1,9 +1,9 @@
-<div 
+<!-- <div 
   id="aads-ad-container-2374301" 
   data-src="https://dynamic.a-ads.com/2374301?size=300x250"
   data-style="width:300px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
   data-fallback="<!-- Here goes your fallback HTML code -->"
-></div>
+></div> -->
 
 <div 
   id="aads-ad-container-2374301" 
@@ -43,6 +43,8 @@
       console.log(`[Ad Loader] Loading ad for container ${container.id}`);
 
       const adUrl = container.dataset.src || `https://dynamic.a-ads.com/${adUnit}?size=300x250`;
+      const size = adUrl.split('size=').pop().split('x'); 
+      console.log(size);
       const iframeStyle = container.dataset.style || 'width:300px;height:250px;border:0;padding:0;background:transparent;';
       const fallbackHtml = container.dataset.fallback || '';
 
@@ -53,7 +55,9 @@
       try {
 
         //FOR TEST!!!
-        const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=300x250`
+        // const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=300x250`
+        const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
+
 
         // const absoluteUrl = new URL(adUrl, location.href).href;
         const response = await fetch(absoluteUrl);
