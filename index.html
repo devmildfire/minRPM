@@ -57,6 +57,8 @@
 
         html = html.replace(/<meta[^>]+http-equiv=['"]?refresh['"][^>]*>/i, '');
 
+        console.log('final html is .... ', html);
+
         iframe.removeAttribute("src");
         
         container.innerHTML = '';
