@@ -1,21 +1,21 @@
 
 <div 
   id="aads-ad-container-1623" 
-  data-src="https://ad.a-ads.com/1623?size=970x250"
+  data-src="https://stg-dynamic.a-ads.com/1623?size=970x250"
   data-style="width:970px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
   data-fallback="<!-- Here goes your fallback HTML code -->"
 ></div>
 
 <div 
   id="aads-ad-container-2295216" 
-  data-src="https://dynamic.a-ads.com/2295216?size=300x250"
+  data-src="https://stg-dynamic.a-ads.com/2295216?size=300x250"
   data-style="width:300px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
   data-fallback="<!-- Here goes your fallback HTML code -->"
 ></div>
 
 <div 
   id="aads-ad-container-2374301" 
-  data-src="https://dynamic.a-ads.com/1623?size=300x250"
+  data-src="https://stg-dynamic.a-ads.com/1623?size=300x250"
   data-style="width:300px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
   data-fallback="<!-- Here goes your fallback HTML code -->"
 ></div>
@@ -36,7 +36,7 @@
 
       console.log(`[Ad Loader] Loading ad for container ${container.id}`);
 
-      const adUrl = container.dataset.src || `https://dynamic.a-ads.com/${adUnit}?size=300x250`;
+      const adUrl = container.dataset.src || `https://stg-dynamic.a-ads.com/${adUnit}?size=300x250`;
       const size = adUrl.split('size=').pop().split('x'); 
       console.log(size);
       const iframeStyle = container.dataset.style || 'width:300px;height:250px;border:0;padding:0;background:transparent;';
@@ -49,7 +49,7 @@
       try {
 
         //FOR TEST!!!
-        // const absoluteUrl = `https://corsproxy.io/?https://dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
+        // const absoluteUrl = `https://corsproxy.io/?https://stg-dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
 
         const absoluteUrl = new URL(adUrl, location.href).href;
         console.log("absoluteUrl ", absoluteUrl);
