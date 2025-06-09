@@ -92,3 +92,70 @@
     }
   })();
 </script>
+
+
+<div id="ad-container" style="width:234px;height:60px;"></div>
+
+<script>
+    (async function loadAd() {
+        console.log("[Ad Loader] Starting ad load...");
+
+        const iframeTemplate = `<iframe data-aa='1623' src='//dynamic.a-ads.com/1623?size=234x60' 
+            style='width:234px; height:60px; border:0; padding:0; overflow:hidden; background-color:transparent;'></iframe>`;
+
+        // Extract ad URL safely
+        const tempContainer = document.createElement("div");
+        tempContainer.innerHTML = iframeTemplate;
+        const iframe = tempContainer.firstElementChild;
+        if (!iframe) return console.error("[Ad Loader] Error: No iframe found in template");
+
+        let adUrl = iframe.getAttribute("src");
+        if (!adUrl) return console.error("[Ad Loader] Error: No src attribute in iframe");
+
+        adUrl = new URL(adUrl, location.origin).href;
+        console.log(`[Ad Loader] Fetching ad from: ${adUrl}`);
+
+        try {
+            let html = await (await fetch(adUrl)).text();
+            if (!html.trim()) throw new Error("Ad content is empty");
+
+            console.log("[Ad Loader] Ad content fetched successfully.");
+
+            // Log all meta tags for debugging
+            let metaTags = html.match(/<meta[^>]*>/gi) || [];
+            console.log("[Ad Loader] Found meta tags:", metaTags);
+
+            // Extract refresh time (handles any attribute order)
+            let refreshMatch = html.match(/<meta[^>]+content=['"]?(\d+)['"]?[^>]+http-equiv=['"]?refresh['"]/i);
+            let refreshTime = refreshMatch ? parseInt(refreshMatch[1], 10) : 0;
+            console.log(`[Ad Loader] Extracted refresh time: ${refreshTime} seconds`);
+
+            // Remove meta refresh
+            html = html.replace(/<meta[^>]+http-equiv=['"]?refresh['"][^>]*>/i, '');
+
+            // Ensure the iframe does NOT trigger a second request
+            iframe.removeAttribute("src");
+
+            // Insert into DOM after src is removed
+            document.getElementById('ad-container').innerHTML = "";
+            document.getElementById('ad-container').appendChild(iframe);
+
+            // Now set `srcdoc`
+            iframe.srcdoc = html;
+
+            console.log("[Ad Loader] Ad inserted into iframe.");
+
+            // Schedule next reload
+            if (refreshTime > 0) {
+                console.log(`[Ad Loader] Scheduling next refresh in ${refreshTime} seconds.`);
+                setTimeout(loadAd, refreshTime * 1000);
+            } else {
+                console.warn("[Ad Loader] No valid refresh time found. Ad will not auto-reload.");
+            }
+        } catch (error) {
+            console.error("[Ad Loader] Ad loading error:", error);
+            document.getElementById('ad-container').innerHTML = 'Fallback ad';
+        }
+    })();
+</script>
+
