@@ -42,7 +42,7 @@
 
       console.log(`[Ad Loader] Loading ad for container ${container.id}`);
 
-      const adUrl = container.dataset.src || `https://stg-dynamic.a-ads.com/${adUnit}?size=300x250`;
+      const adUrl = container.dataset.src || `//dynamic.a-ads.com/${adUnit}?size=300x250`;
       const size = adUrl.split('size=').pop().split('x'); 
       console.log(size);
       const iframeStyle = container.dataset.style || 'width:300px;height:250px;border:0;padding:0;background:transparent;';
@@ -109,10 +109,15 @@
         if (!iframe) return console.error("[Ad Loader] Error: No iframe found in template");
 
         let adUrl = iframe.getAttribute("src");
+
+          console.log('BLOG adURL .... ', adUrl);
+
         if (!adUrl) return console.error("[Ad Loader] Error: No src attribute in iframe");
 
         adUrl = new URL(adUrl, location.origin).href;
         console.log(`[Ad Loader] Fetching ad from: ${adUrl}`);
+
+        console.log('BLOG - NEW - adURL .... ', adUrl);
 
         try {
             let html = await (await fetch(adUrl)).text();
