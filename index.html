@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+
 <div 
   id="aads-ad-container-1623" 
-  data-src="https://dynamic.a-ads.com/1623?size=970x250"
-  data-style="width:970px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
+  data-src="//dynamic.a-ads.com/1623?size=234x60"
+  data-style="width:234px; height:60px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
   data-fallback="<!-- Here goes your fallback HTML code -->"
 ></div>
 
@@ -21,7 +23,7 @@
 
       console.log(`[Ad Loader] Loading ad for container ${container.id}`);
 
-      const adUrl = container.dataset.src || `https://dynamic.a-ads.com/${adUnit}?size=300x250`;
+      const adUrl = container.dataset.src || `https://dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`;
 
       console.log(`HUB - adUrl is ...  ${adUrl}`);
 
@@ -45,11 +47,9 @@
         //FOR TEST!!!
         // const absoluteUrl = `https://corsproxy.io/?https://stg-dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`
 
-        const absoluteUrl = new URL(adUrl, location.href).href;
+        const absoluteUrl = new URL(adUrl, location.origin).href;
         
-        console.log(`HUB - NEW - adUrl is ...  ${adUrl}`);
-
-
+        console.log(`HUB - NEW - adUrl is ...  ${absoluteUrl}`);
 
         const response = await fetch(absoluteUrl);
         let html = await response.text();
