@@ -138,6 +138,8 @@
         // Function to escape strings for data attributes
     function escapeForDataAttribute(unsafeString) {
       return unsafeString
+        .replace(/[\n\r\t]/g, '')         
+        .replace(/\s{2,}/g, ' ')    
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
