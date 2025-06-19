@@ -82,7 +82,7 @@
     window.onload = addAdUnit;
 
     function generateAdUnits(event) {
-      event.preventDefault();
+     event.preventDefault();
       const outputArea = document.getElementById('outputArea');
       outputArea.innerHTML = '';
       
@@ -97,7 +97,6 @@
         const sizeSelect = group.querySelector('select');
         const fallbackTextarea = group.querySelector('textarea');
         
-        // Validate inputs
         if (!idInput.value) {
           alert('Ad-Unit ID is required!');
           return;
@@ -106,11 +105,13 @@
         // Parse dimensions from size
         const [width, height] = sizeSelect.value.split('x').map(Number);
         
-        // Escape fallback code
+        // Escape ONLY the fallback code for data attributes
         const safeFallbackCode = escapeForDataAttribute(fallbackTextarea.value);
         
-        // Generate HTML string
-        const htmlString = `<div 
+        // Build human-readable HTML with normal characters
+        // Only the data-fallback attribute uses escaped characters
+        const htmlString = 
+`<div 
   id="aads-ad-container-${idInput.value}" 
   data-src="//dynamic.a-ads.com/${idInput.value}?size=${sizeSelect.value}"
   data-style="width:${width}px; height:${height}px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
@@ -129,7 +130,6 @@
         
         unitOutput.appendChild(heading);
         unitOutput.appendChild(codeBlock);
-        outputArea.appendChild(unitOutput);      
         outputArea.appendChild(unitOutput);
       });
     }
