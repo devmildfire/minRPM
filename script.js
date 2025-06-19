@@ -83,10 +83,10 @@
 
     function generateAdUnits(event) {
       event.preventDefault();
-      const groups = document.querySelectorAll('.ad-unit-group');
       const outputArea = document.getElementById('outputArea');
       outputArea.innerHTML = '';
       
+      const groups = document.querySelectorAll('.ad-unit-group');
       if (groups.length === 0) {
         outputArea.innerHTML = '<p>No ad units to generate</p>';
         return;
@@ -97,35 +97,39 @@
         const sizeSelect = group.querySelector('select');
         const fallbackTextarea = group.querySelector('textarea');
         
+        // Validate inputs
         if (!idInput.value) {
-          alert('Please fill Ad-Unit ID for all units');
+          alert('Ad-Unit ID is required!');
           return;
         }
         
-        // Escape fallback code for data attributes
+        // Parse dimensions from size
+        const [width, height] = sizeSelect.value.split('x').map(Number);
+        
+        // Escape fallback code
         const safeFallbackCode = escapeForDataAttribute(fallbackTextarea.value);
-    const unitOutput = document.createElement('div');
-    unitOutput.className = 'generated-unit';
-    
-    // Create elements using safe textContent
-    const heading = document.createElement('h3');
-    heading.textContent = `Ad Unit ID: ${idInput.value}`;
-    
-    const sizeInfo = document.createElement('p');
-    sizeInfo.textContent = `Size: ${sizeSelect.value}`;
-    
-    const fallbackLabel = document.createElement('p');
-    fallbackLabel.textContent = 'Safe Fallback Code:';
-    
-    const codeBlock = document.createElement('pre');
-    codeBlock.textContent = safeFallbackCode; // Critical: use textContent
-    
-    unitOutput.appendChild(heading);
-    unitOutput.appendChild(sizeInfo);
-    unitOutput.appendChild(fallbackLabel);
-    unitOutput.appendChild(codeBlock);
         
+        // Generate HTML string
+        const htmlString = `<div 
+  id="aads-ad-container-${idInput.value}" 
+  data-src="//dynamic.a-ads.com/${idInput.value}?size=${sizeSelect.value}"
+  data-style="width:${width}px; height:${height}px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
+  data-fallback="${safeFallbackCode}"
+></div>`;
         
+        // Create output container
+        const unitOutput = document.createElement('div');
+        unitOutput.className = 'generated-unit';
+        
+        const heading = document.createElement('h3');
+        heading.textContent = `Ad Unit ID: ${idInput.value}`;
+        
+        const codeBlock = document.createElement('pre');
+        codeBlock.textContent = htmlString;
+        
+        unitOutput.appendChild(heading);
+        unitOutput.appendChild(codeBlock);
+        outputArea.appendChild(unitOutput);      
         outputArea.appendChild(unitOutput);
       });
     }
