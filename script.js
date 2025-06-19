@@ -1,3 +1,5 @@
+
+  
   let adUnitCount = 0;
 
     function addAdUnit() {
@@ -53,6 +55,15 @@
       fallbackTextarea.cols = 60;
       fallbackTextarea.placeholder = placeholder;
 
+
+        // Add the delete button
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.textContent = 'Delete';
+      deleteButton.onclick = function() {
+        group.remove();
+      };
+
       // Append all to group
       group.appendChild(idLabel);
       group.appendChild(idInput);
@@ -61,6 +72,7 @@
       group.appendChild(fallbackLabel);
       group.appendChild(document.createElement('br'));
       group.appendChild(fallbackTextarea);
+      group.appendChild(deleteButton);
 
       container.appendChild(group);
     }
@@ -68,7 +80,9 @@
     // Add the first ad-unit field set on load
     window.onload = addAdUnit;
 
-    function generateAdUnits() {
-      // Placeholder for the code generation logic
-      alert('Generate function called! (implement logic here)');
+    function generateAdUnits(event) {
+      // This will only run if all required fields are filled
+      event.preventDefault();
+      // Your code generation logic here
+      alert('Generate function called!');
     }
