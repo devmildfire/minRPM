@@ -81,8 +81,51 @@
     window.onload = addAdUnit;
 
     function generateAdUnits(event) {
-      // This will only run if all required fields are filled
       event.preventDefault();
-      // Your code generation logic here
-      alert('Generate function called!');
+      const groups = document.querySelectorAll('.ad-unit-group');
+      const outputArea = document.getElementById('outputArea');
+      outputArea.innerHTML = '';
+      
+      if (groups.length === 0) {
+        outputArea.innerHTML = '<p>No ad units to generate</p>';
+        return;
+      }
+      
+      groups.forEach(group => {
+        const idInput = group.querySelector('input[type="number"]');
+        const sizeSelect = group.querySelector('select');
+        const fallbackTextarea = group.querySelector('textarea');
+        
+        if (!idInput.value) {
+          alert('Please fill Ad-Unit ID for all units');
+          return;
+        }
+        
+        // Escape fallback code for data attributes
+        const safeFallbackCode = escapeForDataAttribute(fallbackTextarea.value);
+        
+        // Create output element
+        const unitOutput = document.createElement('div');
+        unitOutput.className = 'generated-unit';
+        unitOutput.innerHTML = `
+          <h3>Ad Unit ID: ${idInput.value}</h3>
+          <p>Size: ${sizeSelect.value}</p>
+          <p>Safe Fallback Code:</p>
+          <pre>${safeFallbackCode}</pre>
+        `;
+        
+        outputArea.appendChild(unitOutput);
+      });
+    }
+    
+
+        // Function to escape strings for data attributes
+    function escapeForDataAttribute(unsafeString) {
+      return unsafeString
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+        .replace(/\//g, "&#x2F;");
     }
