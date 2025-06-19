@@ -40,6 +40,21 @@
     let adUnitCount = 0;
 
     function addAdUnit() {
+
+
+      const placeholder = `
+      
+      
+      dsfsdf
+      
+      
+      sdfsdf
+      
+      sdfsdf
+      
+      dsff`;
+
+
       adUnitCount++;
       const container = document.getElementById('adUnitsContainer');
 
@@ -76,7 +91,7 @@
       fallbackTextarea.name = `adUnitFallback${adUnitCount}`;
       fallbackTextarea.rows = 5;
       fallbackTextarea.cols = 60;
-      fallbackTextarea.placeholder = `sdfsdfs`;
+      fallbackTextarea.placeholder = placeholder;
 
       // Append all to group
       group.appendChild(idLabel);
