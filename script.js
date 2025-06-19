@@ -51,6 +51,7 @@
       fallbackLabel.innerText = ' Fallback Code: ';
       const fallbackTextarea = document.createElement('textarea');
       fallbackTextarea.name = `adUnitFallback${adUnitCount}`;
+      fallbackLabel.classList.add('fallbackTextArea')
       fallbackTextarea.rows = 5;
       fallbackTextarea.cols = 60;
       fallbackTextarea.placeholder = placeholder;
