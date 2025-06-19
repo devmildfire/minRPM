@@ -104,16 +104,27 @@
         
         // Escape fallback code for data attributes
         const safeFallbackCode = escapeForDataAttribute(fallbackTextarea.value);
+    const unitOutput = document.createElement('div');
+    unitOutput.className = 'generated-unit';
+    
+    // Create elements using safe textContent
+    const heading = document.createElement('h3');
+    heading.textContent = `Ad Unit ID: ${idInput.value}`;
+    
+    const sizeInfo = document.createElement('p');
+    sizeInfo.textContent = `Size: ${sizeSelect.value}`;
+    
+    const fallbackLabel = document.createElement('p');
+    fallbackLabel.textContent = 'Safe Fallback Code:';
+    
+    const codeBlock = document.createElement('pre');
+    codeBlock.textContent = safeFallbackCode; // Critical: use textContent
+    
+    unitOutput.appendChild(heading);
+    unitOutput.appendChild(sizeInfo);
+    unitOutput.appendChild(fallbackLabel);
+    unitOutput.appendChild(codeBlock);
         
-        // Create output element
-        const unitOutput = document.createElement('div');
-        unitOutput.className = 'generated-unit';
-        unitOutput.innerHTML = `
-          <h3>Ad Unit ID: ${idInput.value}</h3>
-          <p>Size: ${sizeSelect.value}</p>
-          <p>Safe Fallback Code:</p>
-          <pre>${safeFallbackCode}</pre>
-        `;
         
         outputArea.appendChild(unitOutput);
       });
