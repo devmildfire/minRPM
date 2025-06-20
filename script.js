@@ -236,8 +236,12 @@
         
         const mainCodeBlock = document.createElement('pre');
         mainCodeBlock.textContent = mainScriptString;
+
+        // Create copy button for main script
+        const mainCopyButton = createCopyButton(mainScriptString, 'main-script');
         
         mainScriptOutput.appendChild(mainHeading);
+        mainScriptOutput.appendChild(mainCopyButton);
         mainScriptOutput.appendChild(mainCodeBlock);
         outputArea.appendChild(mainScriptOutput);
 
@@ -258,3 +262,54 @@
         .replace(/'/g, "&#39;")
         .replace(/\//g, "&#x2F;");
     }
+
+    // Function to create copy button with feedback
+function createCopyButton(textToCopy, identifier) {
+  const copyButton = document.createElement('button');
+  copyButton.className = 'copy-code-button';
+  copyButton.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19 21H9c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2zm0-2V7H9v12h10zM5 17H3V5c0-1.1.9-2 2-2h10v2H5v12z"/>
+    </svg>
+  `;
+  
+  copyButton.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      
+      // Visual feedback
+      const originalHTML = copyButton.innerHTML;
+      copyButton.innerHTML = 'Copied!';
+      copyButton.style.color = '#28a745'; // Green color
+      
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        copyButton.innerHTML = originalHTML;
+        copyButton.style.color = ''; // Reset to default color
+      }, 2000);
+      
+      console.log(`Copied ${identifier} to clipboard`);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = textToCopy;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      copyButton.innerHTML = 'Copied!';
+      setTimeout(() => {
+        copyButton.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 21H9c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2zm0-2V7H9v12h10zM5 17H3V5c0-1.1.9-2 2-2h10v2H5v12z"/>
+          </svg>
+        `;
+      }, 2000);
+    }
+  });
+  
+  return copyButton;
+}
