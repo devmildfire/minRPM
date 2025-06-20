@@ -141,7 +141,109 @@
         unitOutput.appendChild(codeBlock);
         outputArea.appendChild(unitOutput);
       });
+
+
+      const mainScriptString  = `<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+   (function initAds() {
+
+    const containers = document.querySelectorAll('div[id^="aads-ad-container-"]');
+    
+    containers.forEach(container => {
+      loadAd(container);
+    });
+
+    async function loadAd(container) {
+
+      const idParts = container.id.split('-');
+      const adUnit = idParts[idParts.length - 1];
+
+      console.log(\`[Ad Loader] Loading ad for container \${container.id}\`);
+
+      const adUrl = container.dataset.src || \`//dynamic.a-ads.com/\${adUnit}?size=\${size[0]}x\${size[1]}\`;
+      const size = adUrl.split('size=').pop().split('x'); 
+      const iframeStyle = container.dataset.style || 'width:300px;height:250px;border:0;padding:0;background:transparent;';
+
+      const fallbackHtml = container.dataset.fallback || '';
+
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('data-aa', adUnit);
+      iframe.style.cssText = iframeStyle;
+
+      try {
+
+        const absoluteUrl = new URL(adUrl, location.origin).href;
+        const response = await fetch(absoluteUrl);
+        let html = await response.text();
+              
+        if (!html.trim()) throw new Error('Empty ad content');
+       
+        let metaTags = html.match(/<meta[^>]*>/gi) || [];
+        console.log("[Ad Loader] Found meta tags:", metaTags);
+
+        let refreshMatch = html.match(/<meta[^>]+content=['"]?(\\\\d+)['"]?[^>]+http-equiv=['"]?refresh['"]/i);
+        let refreshTime = refreshMatch ? parseInt(refreshMatch[1], 10) : 0;
+        console.log(\`[Ad Loader] Extracted refresh time: \${refreshTime} seconds\`);
+
+        html = html.replace(/<meta[^>]+http-equiv=['"]?refresh['"][^>]*>/i, '');
+
+        iframe.removeAttribute("src");
+        
+        container.innerHTML = '';
+        container.appendChild(iframe);
+        iframe.sandbox = "allow-scripts allow-same-origin allow-popups";
+        iframe.srcdoc = html;
+
+        if (refreshTime > 0) {
+          setTimeout(() => loadAd(container), refreshTime * 1000);
+        }
+      } catch (error) {
+        console.error(\`[Ad Loader] Error in \${container.id}:\`, error);
+          container.innerHTML = fallbackHtml;
+          
+          const scripts = container.querySelectorAll('script');
+
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement('script');
+            if (oldScript.src) {
+              newScript.src = oldScript.src;
+              newScript.async = oldScript.async;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+
+            Array.from(oldScript.attributes).forEach(attr => {
+              if (attr.name !== 'src') newScript.setAttribute(attr.name, attr.value);
+            });
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+          });
+
+      }
     }
+  })();
+
+})
+ 
+</script>`;
+
+        // Create main script container
+        const mainScriptOutput = document.createElement('div');
+        mainScriptOutput.className = 'main-script';
+        
+        const mainHeading = document.createElement('h3');
+        heading.textContent = `Main script HTML`;
+        
+        const mainCodeBlock = document.createElement('pre');
+        mainCodeBlock.textContent = mainScriptString;
+        
+        mainScriptOutput.appendChild(mainHeading);
+        mainScriptOutput.appendChild(mainCodeBlock);
+        outputArea.appendChild(mainScriptOutput);
+
+    }
+
+
     
 
         // Function to escape strings for data attributes
