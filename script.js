@@ -136,6 +136,10 @@
         
         const codeBlock = document.createElement('pre');
         codeBlock.textContent = htmlString;
+
+        // Create copy button for this ad unit
+        const copyButton = createCopyButton(htmlString, `ad-unit-${idInput.value}`);
+        heading.appendChild(copyButton);
         
         unitOutput.appendChild(heading);
         unitOutput.appendChild(codeBlock);
