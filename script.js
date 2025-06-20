@@ -240,8 +240,8 @@
         // Create copy button for main script
         const mainCopyButton = createCopyButton(mainScriptString, 'main-script');
         
+        mainHeading.appendChild(mainCopyButton);
         mainScriptOutput.appendChild(mainHeading);
-        mainScriptOutput.appendChild(mainCopyButton);
         mainScriptOutput.appendChild(mainCodeBlock);
         outputArea.appendChild(mainScriptOutput);
 
