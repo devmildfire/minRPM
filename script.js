@@ -16,7 +16,6 @@
 <script>;(adsbyslise=window.adsbyslise||[]).push({slot:"mobile"});window.adsbyslisesync&&window.adsbyslisesync();</script>
 `;
 
-
       adUnitCount++;
       const container = document.getElementById('adUnitsContainer');
 
@@ -33,18 +32,27 @@
       idInput.name = `adUnitId${adUnitCount}`;
       idInput.required = true;
 
+      const numericInputDiv = document.createElement('div'); 
+      numericInputDiv.appendChild(idLabel);
+      numericInputDiv.appendChild(idInput);
+
+
       // Size select
       const sizeLabel = document.createElement('label');
       sizeLabel.innerText = ' Size: ';
       const sizeSelect = document.createElement('select');
       sizeSelect.name = `adUnitSize${adUnitCount}`;
       sizeSelect.required = true;
-      ['728x90', '300x250', '160x600'].forEach(size => {
+      ['728x90', '234x60', '300x250'].forEach(size => {
         const option = document.createElement('option');
         option.value = size;
         option.innerText = size;
         sizeSelect.appendChild(option);
       });
+
+      const sizeInputDiv = document.createElement('div'); 
+      sizeInputDiv.appendChild(sizeLabel);
+      sizeInputDiv.appendChild(sizeSelect);
 
       // Fallback code textarea
       const fallbackLabel = document.createElement('label');
@@ -60,20 +68,21 @@
         // Add the delete button
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
-      deleteButton.textContent = 'Delete';
+      deleteButton.textContent = 'Delete this input';
       deleteButton.onclick = function() {
         group.remove();
       };
 
+      const buttonDiv = document.createElement('div'); 
+      buttonDiv.appendChild(deleteButton);
+
       // Append all to group
-      group.appendChild(idLabel);
-      group.appendChild(idInput);
-      group.appendChild(sizeLabel);
-      group.appendChild(sizeSelect);
+      group.appendChild(numericInputDiv);  
+      group.appendChild(sizeInputDiv);
       group.appendChild(fallbackLabel);
       group.appendChild(document.createElement('br'));
       group.appendChild(fallbackTextarea);
-      group.appendChild(deleteButton);
+      group.appendChild(buttonDiv);
 
       container.appendChild(group);
     }
