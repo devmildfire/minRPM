@@ -232,7 +232,7 @@
         mainScriptOutput.className = 'main-script';
         
         const mainHeading = document.createElement('h3');
-        heading.textContent = `Main script HTML`;
+        mainHeading.textContent = `Main script HTML`;
         
         const mainCodeBlock = document.createElement('pre');
         mainCodeBlock.textContent = mainScriptString;
