@@ -5,8 +5,10 @@
 </a>
 
 
-<script defer="true">
-  (function initAds() {
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+   (function initAds() {
 
     const containers = document.querySelectorAll('div[id^="aads-ad-container-"]');
     
@@ -82,6 +84,9 @@
       }
     }
   })();
+
+})
+ 
 </script>
 
 
