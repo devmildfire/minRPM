@@ -4,177 +4,45 @@
   manual
 </a>
 
-<!-- <script>
-  document.addEventListener('DOMContentLoaded', function() {
-
-   (function initAds() {
-
-    const containers = document.querySelectorAll('div[id^="aads-ad-container-"]');
-    
-    containers.forEach(container => {
-      loadAd(container);
-    });
-
-    async function loadAd(container) {
-
-      const idParts = container.id.split('-');
-      const adUnit = idParts[idParts.length - 1];
-
-      console.log(`[Ad Loader] Loading ad for container ${container.id}`);
-
-      const adUrl = container.dataset.src || `//dynamic.a-ads.com/${adUnit}?size=${size[0]}x${size[1]}`;
-      const size = adUrl.split('size=').pop().split('x'); 
-      const iframeStyle = container.dataset.style || 'width:300px;height:250px;border:0;padding:0;background:transparent;';
-
-      const fallbackHtml = container.dataset.fallback || '';
-
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute('data-aa', adUnit);
-      iframe.style.cssText = iframeStyle;
-
-      try {
-
-        const absoluteUrl = new URL(adUrl, location.origin).href;
-        const response = await fetch(absoluteUrl);
-        let html = await response.text();
-              
-        if (!html.trim()) throw new Error('Empty ad content');
-       
-        let metaTags = html.match(/<meta[^>]*>/gi) || [];
-        console.log("[Ad Loader] Found meta tags:", metaTags);
-
-        let refreshMatch = html.match(/<meta[^>]+content=['"]?(\d+)['"]?[^>]+http-equiv=['"]?refresh['"]/i);
-        let refreshTime = refreshMatch ? parseInt(refreshMatch[1], 10) : 0;
-        console.log(`[Ad Loader] Extracted refresh time: ${refreshTime} seconds`);
-
-        html = html.replace(/<meta[^>]+http-equiv=['"]?refresh['"][^>]*>/i, '');
-
-        iframe.removeAttribute("src");
-        
-        container.innerHTML = '';
-        container.appendChild(iframe);
-        iframe.sandbox = "allow-scripts allow-same-origin allow-popups";
-        iframe.srcdoc = html;
-
-        if (refreshTime > 0) {
-          setTimeout(() => loadAd(container), refreshTime * 1000);
-        }
-      } catch (error) {
-        console.error(`[Ad Loader] Error in ${container.id}:`, error);
-          container.innerHTML = fallbackHtml;
-          
-          const scripts = container.querySelectorAll('script');
-
-          scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            if (oldScript.src) {
-              newScript.src = oldScript.src;
-              newScript.async = oldScript.async;
-            } else {
-              newScript.textContent = oldScript.textContent;
-            }
-
-            Array.from(oldScript.attributes).forEach(attr => {
-              if (attr.name !== 'src') newScript.setAttribute(attr.name, attr.value);
-            });
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-          });
-
-      }
-    }
-  })();
-
-})
- 
-</script>
- -->
-
-
-
 <div>test slice</div>
 
 <script async src="https://v1.slise.xyz/scripts/embed.js"></script>
-<ins
-  class="adsbyslise"
-  style="display:block;width:728px;height:90px"
-  data-ad-slot="leaderboard"
-  data-ad-pub="pub-3"
-  data-ad-format="728x90"
-></ins>
-<script>;(adsbyslise=window.adsbyslise||[]).push({slot:"mobile"});window.adsbyslisesync&&window.adsbyslisesync();</script>
+<ins class="adsbyslise" style="display:block;width:728px;height:90px" data-ad-slot="leaderboard" data-ad-pub="pub-3"
+  data-ad-format="728x90"></ins>
+<script>; (adsbyslise = window.adsbyslise || []).push({ slot: "mobile" }); window.adsbyslisesync && window.adsbyslisesync();</script>
 
 test aads
 
-<div 
-  id="aads-ad-container-1864795" 
-  data-src="//dynamic.a-ads.com/1864795?size=728x90"
+<div id="aads-ad-container-1864795" data-src="//dynamic.a-ads.com/1864795?size=728x90"
   data-style="width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="&lt;script async src=&quot;https://v1.slise.xyz/scripts/embed.js&quot;&gt;&lt;/script&gt;&lt;ins class=&quot;adsbyslise&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-slot=&quot;leaderboard&quot; data-ad-pub=&quot;pub-3&quot; data-ad-format=&quot;728x90&quot;&gt;&lt;/ins&gt;&lt;script&gt;;(adsbyslise=window.adsbyslise||[]).push({slot:&quot;leaderboard&quot;});window.adsbyslisesync&amp;&amp;window.adsbyslisesync();&lt;/script&gt;"
-></div>
+  data-fallback="&lt;script async src=&quot;https://v1.slise.xyz/scripts/embed.js&quot;&gt;&lt;/script&gt;&lt;ins class=&quot;adsbyslise&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-slot=&quot;leaderboard&quot; data-ad-pub=&quot;pub-3&quot; data-ad-format=&quot;728x90&quot;&gt;&lt;/ins&gt;&lt;script&gt;;(adsbyslise=window.adsbyslise||[]).push({slot:&quot;leaderboard&quot;});window.adsbyslisesync&amp;&amp;window.adsbyslisesync();&lt;/script&gt;">
+</div>
 
-<div 
-  id="aads-ad-container-1864795-test-fallback" 
-  data-src="//bad-url"
+<div id="aads-ad-container-1864795-test-fallback" data-src="//bad-url"
   data-style="width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="&lt;script async src=&quot;https://v1.slise.xyz/scripts/embed.js&quot;&gt;&lt;/script&gt;&lt;ins class=&quot;adsbyslise&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-slot=&quot;leaderboard&quot; data-ad-pub=&quot;pub-3&quot; data-ad-format=&quot;728x90&quot;&gt;&lt;/ins&gt;&lt;script&gt;;(adsbyslise=window.adsbyslise||[]).push({slot:&quot;leaderboard&quot;});window.adsbyslisesync&amp;&amp;window.adsbyslisesync();&lt;/script&gt;"
-></div>
+  data-fallback="&lt;script async src=&quot;https://v1.slise.xyz/scripts/embed.js&quot;&gt;&lt;/script&gt;&lt;ins class=&quot;adsbyslise&quot; style=&quot;display:inline-block;width:728px;height:90px&quot; data-ad-slot=&quot;leaderboard&quot; data-ad-pub=&quot;pub-3&quot; data-ad-format=&quot;728x90&quot;&gt;&lt;/ins&gt;&lt;script&gt;;(adsbyslise=window.adsbyslise||[]).push({slot:&quot;leaderboard&quot;});window.adsbyslisesync&amp;&amp;window.adsbyslisesync();&lt;/script&gt;">
+</div>
 
-<div 
-  id="aads-ad-container-1623" 
-  data-src="//dynamic.a-ads.com/1623?size=234x60"
+<div id="aads-ad-container-1623" data-src="//dynamic.a-ads.com/1623?size=234x60"
   data-style="width:234px; height:60px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="<!-- Here goes your fallback HTML code -->"
-></div>
+  data-fallback="<!-- Here goes your fallback HTML code -->"></div>
 
-<div 
-  id="aads-ad-container-2374301" 
-  data-src="//dynamic.a-ads.com/2374301?size=300x250"
+<div id="aads-ad-container-2374301" data-src="//dynamic.a-ads.com/2374301?size=300x250"
   data-style="width:300px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="<!-- Here goes your fallback HTML code -->"
-></div>
+  data-fallback="<!-- Here goes your fallback HTML code -->"></div>
 
-<div 
-  id="aads-ad-container-1602827" 
-  data-src="//dynamic.a-ads.com/1602827?size=320x100"
+<div id="aads-ad-container-1602827" data-src="//dynamic.a-ads.com/1602827?size=320x100"
   data-style="width:320px; height:100px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="<!-- Here goes your fallback HTML code -->"
-></div>
+  data-fallback="<!-- Here goes your fallback HTML code -->"></div>
 
-<div 
-  id="aads-ad-container-2316397" 
-  data-src="//dynamic.a-ads.com/2316397?size=320x100"
+<div id="aads-ad-container-2316397" data-src="//dynamic.a-ads.com/2316397?size=320x100"
   data-style="width:320px; height:100px; border:0px; padding:0; overflow:hidden; background-color: transparent;"
-  data-fallback="<!-- Here goes your fallback HTML code -->"
-></div>
+  data-fallback="<!-- Here goes your fallback HTML code -->"></div>
 
 
-
-
-<!-- <script src="https://a-ads-banners.s3.eu-central-1.amazonaws.com/fallback/fallback-script.js"></script> -->
-
-
-
-<div style="position: absolute; z-index: 99999">
-      <input autocomplete="off" type="checkbox" id="aadsstickymckrlgux" hidden="">
-      <div style="padding-top: 0; padding-bottom: 60px;">
-        <div style="width:468px;height:60px;position:fixed;text-align:center;font-size:0;bottom:0;left:0;right:0;margin:auto">
-          <label for="aadsstickymckrlgux" style="top: -24px; right: 0;; position: absolute;border-radius: 4px; background: rgba(248, 248, 249, 0.70); padding: 4px;z-index: 99999;cursor:pointer">
-            <svg fill="#000000" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490">
-              <polygon points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490 489.292,457.678 277.331,245.004 489.292,32.337 "></polygon>
-            </svg>
-          </label>
-          <div id="frame" style="width: 468px;margin: auto;z-index: 99998;height: auto">
-                          <div style="width: 468px;margin:auto;text-align:left;position: absolute;left: 0;right: 0; top:-24px">
-                            <a style="display:inline-block;font-size: 13px;color: #263238;padding: 4px 10px;background: #F8F8F9;text-decoration: none; border-radius: 4px 4px 0 0;" id="frame-link" target="_blank" href="https://aads.com/campaigns/new?source_id=1&amp;source_type=ad_unit&amp;partner=1">
-                              Advertise here
-                            </a>
-                          </div>
-                        <div id="aads-ad-container-1" data-src="//dynamic.a-ads.com/1?size=468x60" data-style="border:0; padding:0; width:468px; height:60px; overflow:hidden; margin: auto" data-fallback=""></div><script src="https://a-ads-banners.s3.eu-central-1.amazonaws.com/fallback/fallback-script.js"></script>
-                    </div>
-        </div>
-        <style>
-      #aadsstickymckrlgux:checked + div {
-        display: none;
-      }
-    </style>
-    </div></div>
+<div id="frame" style="width: 468px;margin: auto;z-index: 99998;height: auto">
+  <div id="aads-ad-container-1" data-src="//dynamic.a-ads.com/1?size=468x60"
+    data-style="border:0; padding:0; width:468px; height:60px; overflow:hidden;display: block;margin: auto"
+    data-fallback=""></div>
+  <script src="https://a-ads-banners.s3.eu-central-1.amazonaws.com/fallback/fallback-script.js"></script>
+</div>
